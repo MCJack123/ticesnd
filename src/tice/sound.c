@@ -5,8 +5,6 @@
 //  Created by JackMacWindows on 10/29/18.
 //
 
-#warning THIS IS BETA SOFTWARE FOR PREVIEW ONLY.
-
 #include "sound.h"
 #include <math.h>
 
@@ -96,10 +94,8 @@ bool switchToPCM() {
     srl_ConfigSerial(&lc);
     delay(50);
     srl_WriteByte(zero); // can be anything
-    samples = 8000;
+    samples = 8000; // redundant
     bits = 8;
-    //srl_Read(&samples, 2);
-    //bits = srl_ReadByte();
     pcm_mode = true;
     return true;
 }
@@ -108,24 +104,15 @@ bool isInPCM() {
     return pcm_mode;
 }
 
-//*
-#define NOWAIT
-//*/
 void sendPCMAudio(uint8_t * buf, uint24_t size) {
-#ifdef NOWAIT
-    srl_Write(buf, size);
-#else
     int wait;
     uint24_t i;
-    uint8_t c;
-    for (i = 0; i < size; i+=256) {
-        //os_PutStrFull("P");
+    uint8_t c = 0;
+    srl_Write(&c, 1);
+    srl_Await();
+    for (i = 0; i < size; i+=512) {
         wait = 0;
-        srl_Write(&buf[i], 256);
-        // while (wait < 6000) wait++;
-        delay(32);
+        srl_Write(&buf[i], 512);
+        delay(64);
     }
-    //delay(.125*size);
-    //srl_Write(buf, size);
-#endif
 }
