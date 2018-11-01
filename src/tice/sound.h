@@ -94,4 +94,22 @@ extern void adjustNotes(uint16_t * notes, uint16_t count, uint8_t octave);
  */
 extern void playSong(uint16_t notes[], float beats[], uint16_t count);
 
-#endif /* ti_sound_h */
+/**
+ * Attempts to switch to PCM mode if the card is compatible.
+ * @return Whether the switch was successful.
+ */
+extern bool switchToPCM();
+/**
+ * Returns whether the card is in PCM mode.
+ * @return Whether the card is in PCM mode.
+ */
+extern bool isInPCM();
+/**
+ * Sends a PCM buffer to the sound card.
+ * The sound must be signed 8-bit mono audio at 11025 Hz.
+ * @param buf The buffer to write.
+ * @param size The size of the audio.
+ */
+extern void sendPCMAudio(uint8_t * buf, uint24_t size);
+
+#endif /* sound_h */
