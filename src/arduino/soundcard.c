@@ -1,6 +1,7 @@
 int state = 0;
 int freq = 0;
 unsigned long lastRead;
+#define START_BEEP // undef for no beeps
 #define SAMPLE_RATE 8000
 int ledPin = 13;
 int speakerPin = 11; // Can be either 3 or 11, two PWM outputs connected to Timer 2
@@ -24,13 +25,33 @@ void stopPlayback()
 
 // This is called at 8000 Hz to load the next sample.
 ISR(TIMER1_COMPA_vect) {
-    
-        if (Serial.available()) snum = Serial.read();
+    if (false) {
+        /*if (false) {
+            stopPlayback();
+        }
+        else {
+            if(speakerPin==11){
+                // Ramp down to zero to reduce the click at the end of playback.
+                OCR2A = sounddata_length + lastSample - sample;
+            } else {
+                OCR2B = sounddata_length + lastSample - sample;                
+            }
+        }*/
+    }
+    else {
+        if (Serial.available()) {
+          snum = Serial.read();
+          if (snum == 0) Serial.write((char*)&snum, 1);
+        }
+        //digitalWrite(13, (snum < 64));
         if(speakerPin==11){
             OCR2A = snum;
         } else {
             OCR2B = snum;            
         }
+        //Serial.println(snum);
+    }
+
     ++sample;
 }
 
@@ -71,6 +92,10 @@ void startPlayback()
         OCR2B = pgm_read_byte(&num);
     }
 
+
+
+
+
     // Set up Timer 1 to send a sample every interrupt.
 
     cli();
@@ -101,13 +126,27 @@ void setup() {
   pinMode(13, OUTPUT);
   digitalWrite(13, LOW);
   Serial.begin(9600);
+  #ifdef START_BEEP
   tone(11, 300);
   delay(50);
   noTone(11);
+  #endif
   Serial.setTimeout(10);
 }
 
 void loop() {
+  /*if (state == 3) {
+    /*if (micros() - lastRead > 1000000/SAMPLE_RATE) {
+      lastRead = micros();
+      if (Serial.available()) {
+        int num = Serial.read();
+        if (num == -1) return;
+        analogWrite(11, num);
+        Serial.write((char*)&num, 1);
+      }
+    }
+    return;
+  }*/
   int num = Serial.read();
   if ((state == 0 && num != 0xFF) || num == -1) return;
   if (num == 'p') Serial.println(state);
@@ -129,9 +168,11 @@ void loop() {
         long baud = 115200;
         short samples = 8000;
         // notify calc of baud change
+        #ifdef START_BEEP
         tone(11, 600);
         delay(50);
         noTone(11);
+        #endif
         Serial.write((char*)&baud, 4);
         Serial.end();
         Serial.begin(115200);
@@ -144,6 +185,7 @@ void loop() {
           Serial.end();
           Serial.begin(9600);
           state = 0;
+          #ifdef START_BEEP
           tone(11, 300);
           delay(50);
           noTone(11);
@@ -151,14 +193,17 @@ void loop() {
           tone(11, 300);
           delay(50);
           noTone(11);
+          #endif
           return;
         }
         // notify calc of format
         Serial.write((char*)&samples, 2);
         Serial.write(8);
+        #ifdef STAR_BEEP
         tone(11, 1200);
         delay(50);
         noTone(11);
+        #endif
         lastRead = micros();
         startPlayback();
         while (true) ;
