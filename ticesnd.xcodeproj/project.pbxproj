@@ -1,0 +1,78 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		53F1C3062194ED7F00E585D8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		53F1C3072194ED7F00E585D8 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; path = src; sourceTree = "<group>"; };
+		53F1C3082194ED7F00E585D8 /* examples */ = {isa = PBXFileReference; lastKnownFileType = folder; path = examples; sourceTree = "<group>"; };
+		53F1C3092194ED8900E585D8 /* .git */ = {isa = PBXFileReference; lastKnownFileType = folder; path = .git; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		53F1C2FF2194ED7300E585D8 = {
+			isa = PBXGroup;
+			children = (
+				53F1C3092194ED8900E585D8 /* .git */,
+				53F1C3082194ED7F00E585D8 /* examples */,
+				53F1C3062194ED7F00E585D8 /* README.md */,
+				53F1C3072194ED7F00E585D8 /* src */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		53F1C3002194ED7300E585D8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+			};
+			buildConfigurationList = 53F1C3032194ED7300E585D8 /* Build configuration list for PBXProject "ticesnd" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 53F1C2FF2194ED7300E585D8;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		53F1C3042194ED7300E585D8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		53F1C3052194ED7300E585D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		53F1C3032194ED7300E585D8 /* Build configuration list for PBXProject "ticesnd" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				53F1C3042194ED7300E585D8 /* Debug */,
+				53F1C3052194ED7300E585D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 53F1C3002194ED7300E585D8 /* Project object */;
+}
