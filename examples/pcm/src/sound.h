@@ -35,15 +35,23 @@
  * @param stop_bits Number of stop bits in the connection.
  * @param bit_parity The parity of the bits.
  * @param data_bits Number of data bits.
- * @return Whether the initialization was successful.
+ * @returns Whether the initialization was successful.
  */
 extern bool initSerial(uint32_t baud_rate, uint8_t stop_bits, uint8_t bit_parity, uint8_t data_bits);
 /**
  * Initializes the serial bus with 9600 baud, 1 stop bit, no bit parity, and 8 data bits.
- * @return Whether the initialization was successful.
+ * @returns Whether the initialization was successful.
  */
 extern bool initSerialDefault();
 
+/********************************** NOTE MODE *********************************/
+
+/**
+ * Plays a single tone for an amount of time.
+ * @param frequency The frequency of the note. Set to 0 to stop.
+ * @param length The length of the note in ms. Set to 0 to play indefinitely.
+ */
+extern void playTone(uint16_t frequency, uint16_t length);
 /**
  * Plays a series of notes and lengths.
  * @param notes A list of notes to play.
@@ -51,12 +59,6 @@ extern bool initSerialDefault();
  * @param count The number of notes in both lists.
  */
 extern void playNotes(uint16_t notes[], uint16_t lengths[], uint16_t count);
-/**
- * Plays a single tone for an amount of time.
- * @param frequency The frequency of the note. Set to 0 to stop.
- * @param length The length of the note in ms. Set to 0 to play indefinitely.
- */
-extern void playTone(uint16_t frequency, uint16_t length);
 /**
  * Stops all sound.
  */
@@ -76,7 +78,7 @@ extern void setBeats(uint8_t size);
  * Adjusts the octave of the note.
  * @param note Base note.
  * @param octave The octave of the resulting note.
- * @return The adjusted pitch of the note.
+ * @returns The adjusted pitch of the note.
  */
 extern uint16_t adjustNote(uint16_t note, uint8_t octave);
 /**
@@ -94,6 +96,8 @@ extern void adjustNotes(uint16_t * notes, uint16_t count, uint8_t octave);
  */
 extern void playSong(uint16_t notes[], float beats[], uint16_t count);
 
+/********************************** PCM MODE **********************************/
+
 /**
  * Attempts to switch to PCM mode if the card is compatible.
  * @return Whether the switch was successful.
@@ -101,7 +105,7 @@ extern void playSong(uint16_t notes[], float beats[], uint16_t count);
 extern bool switchToPCM();
 /**
  * Returns whether the card is in PCM mode.
- * @return Whether the card is in PCM mode.
+ * @returns Whether the card is in PCM mode.
  */
 extern bool isInPCM();
 /**

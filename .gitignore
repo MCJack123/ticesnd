@@ -1,0 +1,7 @@
+.DS_Store
+*.8xp
+*.bin
+*.map
+*.src
+bin
+obj
