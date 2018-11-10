@@ -1,3 +1,4 @@
+// Deprecated while using raspi/ticesndcard: DO NOT COMBINE!
 int state = 0;
 int freq = 0;
 unsigned long lastRead;

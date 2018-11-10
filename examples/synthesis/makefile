@@ -5,7 +5,7 @@
 # Set COMPRESSED to "YES" to create a compressed program
 # ----------------------------
 
-NAME        ?= SYNTH
+NAME        ?= TETRIS
 COMPRESSED  ?= NO
 ICON        ?= iconc.png
 DESCRIPTION ?= "Sound test"
