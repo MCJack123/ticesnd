@@ -116,3 +116,26 @@ void sendPCMAudio(uint8_t * buf, uint24_t size) {
         delay(64);
     }
 }
+
+#define frequency(t) (t & 0xFFF)
+#define channel(t) ((t & 0xF000) >> 12)
+#define ticks(t) ((t & 0xFF0000) >> 16)
+#define zeronum(c) (0xF0 | c)
+
+bool playHardware(uint24_t * notes, uint24_t count) {
+    int i;
+    uint8_t bytes[48];
+    int o = 0;
+    for (i = 0; i < count; i++) {
+        delay(ticks(notes[i])*(60000/global_bpm/measure_size));
+        bytes[0+o] = 0xF0 | channel(notes[i]);
+        bytes[1+o] = (frequency(notes[i]) & 0xF00) >> 8;
+        bytes[2+o] = frequency(notes[i]) & 0xFF;
+        //srl_Write(bytes, 1);
+        //srl_Await();
+        if (i + 1 < count && ticks(notes[i+1]) == 0) o += 3;
+        else {srl_Write(bytes, o + 3); o = 0;}
+    }
+    delay(10);
+    return true;
+}

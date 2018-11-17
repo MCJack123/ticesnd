@@ -15,6 +15,9 @@
 #include <stdbool.h>
 #include "usbserial.h"
 
+// This macro defines if you are using a Raspberry Pi as your sound card (ticesndcard v3). Undefine if you are using an Arduino (ticesndcard v2).
+#define TICESNDCARD_V3
+
 #define NOTE_C  262 // C4
 #define NOTE_DB 277 // C#/Db4
 #define NOTE_D  294 // D4

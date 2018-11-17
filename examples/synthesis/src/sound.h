@@ -110,10 +110,18 @@ extern bool switchToPCM();
 extern bool isInPCM();
 /**
  * Sends a PCM buffer to the sound card.
- * The sound must be signed 8-bit mono audio at 11025 Hz.
+ * The sound must be unsigned 8-bit mono audio at 8000 Hz.
  * @param buf The buffer to write.
  * @param size The size of the audio.
  */
 extern void sendPCMAudio(uint8_t * buf, uint24_t size);
+
+/**
+ * Plays a list of instrumental notes on the sound card.
+ * @param notes The list of notes to play. (ticks_since_last << 16 | channel << 12 | frequency)
+ * @param count The number of notes in the list.
+ * @returns Whether the playback was successful.
+ */
+extern bool playHardware(uint24_t * notes, uint24_t count);
 
 #endif /* sound_h */

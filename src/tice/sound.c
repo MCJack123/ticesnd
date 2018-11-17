@@ -105,9 +105,14 @@ bool isInPCM() {
 }
 
 void sendPCMAudio(uint8_t * buf, uint24_t size) {
+    uint8_t c = 0;
+#ifdef _TICESNDCARD_V3
+    srl_Write(&c, 1);
+    srl_Await();
+    srl_Write(buf, size);
+#else
     int wait;
     uint24_t i;
-    uint8_t c = 0;
     srl_Write(&c, 1);
     srl_Await();
     for (i = 0; i < size; i+=512) {
@@ -115,4 +120,5 @@ void sendPCMAudio(uint8_t * buf, uint24_t size) {
         srl_Write(&buf[i], 512);
         delay(64);
     }
+#endif
 }
